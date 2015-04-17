@@ -10,5 +10,11 @@
 
 <p>
   <strong>Moderator:</strong>
-  <%= @sub.moderator_id %>
+  <%= @sub.moderator.email %>
 </p>
+
+<ol>
+  <% @sub.posts.each do |post| %>
+    <%= render post %>
+  <% end %>
+</ol>

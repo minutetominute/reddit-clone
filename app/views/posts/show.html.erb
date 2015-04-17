@@ -17,7 +17,7 @@
 
 <p>
   <strong>Sub:</strong>
-  <%= @post.sub.title %>
+  <%= @post.subs.map(&:title).join(', ') %>
 </p>
 
 <p>

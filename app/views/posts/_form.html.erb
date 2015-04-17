@@ -19,8 +19,14 @@
   cols="40"><%= @post.content %></textarea>
   <br>
 
-  <%= render "shared/select", collection: Sub.all, class_name: "post",
-    collection_name: "sub_id", parent_class: @post %>
+  <label>
+    <% Sub.all.each do |sub| %>
+      <input value="<%= sub.id %>" type="checkbox"
+        <%= @post.subs.map(&:id).include?(sub.id) ? "checked" : "" %>>
+        <%= sub.name %>
+      </input>
+    <% end %>
+  </label>
 
   <input type="submit">
 </form>
