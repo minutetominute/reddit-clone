@@ -8,6 +8,22 @@
 </head>
 <body>
 
+<% flash.each do |key, value| %>
+  <p>
+    <%= value %>
+  </p>
+<% end %>
+
+<% if logged_in? %>
+  <form action="<%= session_url %>" method="post">
+    <%= csrf_html %>
+    <input type="hidden" name="_method" value="delete">
+    <button>Log out!</button>
+  </form>
+<% else %>
+  <a href="<%= new_session_url %>">Login</a>
+<% end %>
+
 <%= yield %>
 
 </body>

@@ -1,0 +1,20 @@
+<% method = (@user && @user.persisted?) ? :patch : :post  %>
+
+<form action="<%= url %>" method="post">
+  <% if method == :patch %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <%= csrf_html %>
+
+  <label for="user_email">Email</label>
+  <input type="text" name="user[email]">
+
+  <br>
+
+  <label for="user_password">Password</label>
+  <input type="password" name="user[password]">
+
+  <br>
+
+  <input type="submit" value="Sign up!">
+</form>
