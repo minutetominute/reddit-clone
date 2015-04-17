@@ -1,0 +1,8 @@
+<%= "#{comment.author.email} says: #{comment.content}" %>
+<% comment.child_comments.each do |child_comment| %>
+ <ul>
+   <li>
+     <%= render child_comment %>
+   </li>
+</ul>
+<% end %>

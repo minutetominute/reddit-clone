@@ -28,9 +28,9 @@
 <a href="<%= new_post_comment_url(@post) %>">New comment</a>
 
 <ol>
-  <% @post.comments.each do |comment| %>
+  <% @post.comments.where(parent_comment_id: nil).each do |comment| %>
     <li>
-      <%= "#{comment.author.email} says: #{comment.content}" %>
-    </li>
+     <%= render comment %>
+    </li>  
   <% end %>
 </ol>

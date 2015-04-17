@@ -1,0 +1,17 @@
+<h2>Comment for <%= @comment.post.title %> </h2>
+
+<p>
+  <%= @comment.content %>
+</p>
+
+<p>
+  New Comment:
+</p>
+
+<form action="<%= comments_url %>" method="post">
+  <%= csrf_html %>
+  <input type="hidden" name="comment[parent_comment_id]" value="<%= @comment.id%>">
+  <input type="hidden" name="comment[post_id]" value="<%= @comment.post_id %>">
+  <textarea name="comment[content]" rows="8" cols="40"></textarea>
+  <input type="submit"  value="submit comment">
+</form>
