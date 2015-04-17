@@ -1,4 +1,4 @@
-<% child_comments = all_comments.select do |comment2| %>
+<% child_comments = @all_comments.select do |comment2| %>
   <% comment2.parent_comment_id == comment.id if comment2.parent_comment_id %>
 <% end %>
 

@@ -6,6 +6,10 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @all_comments = @post.comments.includes(:author)
+    @parent_comments = @all_comments.select do |comment|
+      comment.parent_comment_id.nil?
+    end
   end
 
   # GET /posts/new
