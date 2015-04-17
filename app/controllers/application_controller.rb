@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-
+  def check_for_author
+    redirect_to post_url(@post) unless current_user == @post.author
+  end
 
   def check_for_user
     redirect_to new_session_url unless logged_in?
   end
-
-
 
 end

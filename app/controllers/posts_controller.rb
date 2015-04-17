@@ -25,6 +25,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post
     else
+      flash[:error] = "Something went terribly wrong"
       render :new
     end
 
@@ -34,10 +35,12 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     @post.update(post_params)
-    if @posts.save
-      redirect_to @post, notice: "Post sucessfuly updated"
+    if @post.save
+      flash[:success] = "Post updated!"
+      redirect_to @post
     else
-      render :edit, notice: "Something went wrong try again"
+      flash[:error] = "Something went terribly wrong"
+      render :edit
     end
   end
 
@@ -54,12 +57,8 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    def check_for_author
-      redirect_to post_url(@post) unless current_user == @post.author
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :url, :content, :sub_ids[], :author_id)
+      params.require(:post).permit(:title, :url, :content, :author_id, sub_ids: [])
     end
 end

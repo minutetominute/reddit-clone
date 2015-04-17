@@ -21,7 +21,7 @@
 
   <label>
     <% Sub.all.each do |sub| %>
-      <input value="<%= sub.id %>" type="checkbox"
+      <input name="post[sub_ids][]" value="<%= sub.id %>" type="checkbox"
         <%= @post.subs.map(&:id).include?(sub.id) ? "checked" : "" %>>
         <%= sub.name %>
       </input>

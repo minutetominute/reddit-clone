@@ -24,3 +24,13 @@
   <strong>Author:</strong>
   <%= @post.author.email %>
 </p>
+
+<a href="<%= new_post_comment_url(@post) %>">New comment</a>
+
+<ol>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= "#{comment.author.email} says: #{comment.content}" %>
+    </li>
+  <% end %>
+</ol>
