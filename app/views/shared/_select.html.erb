@@ -1,0 +1,9 @@
+<select class="" name="<%="#{class_name}[#{collection_name}]"%>">
+  <% collection.each do |item| %>
+    <option value="<%= item.id %>"
+      <%= item.id == parent_class.send(collection_name) ? "selected" : ""%>> 
+      <%= item.name %>
+    </option>
+
+  <% end %>
+</select>

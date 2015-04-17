@@ -1,37 +1,26 @@
-<%= form_for(@post) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<form action="<%= @post.persisted? ? post_url(@post) : posts_url %>" method="post">
+  <%= csrf_html %>
 
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% if @post.persisted? %>
+    <input type="hidden" name="_method" value="patch">
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :sub_id %><br>
-    <%= f.number_field :sub_id %>
-  </div>
-  <div class="field">
-    <%= f.label :author_id %><br>
-    <%= f.number_field :author_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <label for="post_title">Title</label>
+  <input type="text" name="post[title]" value="<%= @post.title %>">
+  <br>
+
+  <label for="post_url">URL</label>
+  <input type="text" name="post[url]" value="<%= @post.url %>">
+  <br>
+
+  <label for="post_content">Content</label>
+  <textarea name="post[content]"
+  rows="8"
+  cols="40"><%= @post.content %></textarea>
+  <br>
+
+  <%= render "shared/select", collection: Sub.all, class_name: "post",
+    collection_name: "sub_id", parent_class: @post %>
+
+  <input type="submit">
+</form>

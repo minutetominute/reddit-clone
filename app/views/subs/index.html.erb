@@ -17,15 +17,10 @@
       <tr>
         <td><%= sub.title %></td>
         <td><%= sub.description %></td>
-        <td><%= sub.moderator_id %></td>
-        <td><%= link_to 'Show', sub %></td>
-        <td><%= link_to 'Edit', edit_sub_path(sub) %></td>
-        <td><%= link_to 'Destroy', sub, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sub.moderator.email %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Sub', new_sub_path %>

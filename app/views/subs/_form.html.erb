@@ -1,29 +1,17 @@
-<%= form_for(@sub) do |f| %>
-  <% if @sub.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sub.errors.count, "error") %> prohibited this sub from being saved:</h2>
-
-      <ul>
-      <% @sub.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<form action="<%= @sub.persisted? ? sub_url(@sub) : subs_url %>" method="post">
+  <%= csrf_html %>
+  <% if @sub.persisted? %>
+    <input type="hidden" name="_method" value="patch">
   <% end %>
+  <label for="sub_title">Title</label>
+  <input type="text" name="sub[title]" value="<%= @sub.title %>">
+  <br>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :moderator_id %><br>
-    <%= f.number_field :moderator_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <label for="sub_description">Description</label>
+  <textarea name="sub[description]"
+  rows="8"
+  cols="40"><%= @sub.description %></textarea>
+  <br>
+
+  <input type="submit">
+</form>

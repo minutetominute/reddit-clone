@@ -1,6 +1,7 @@
 class SubsController < ApplicationController
   before_action :set_sub, only: [:show, :edit, :update, :destroy]
   before_action :check_moderator, only: [:edit, :update, :destroy]
+  before_action :check_for_user, only: [:new, :create]
 
   # GET /subs
   # GET /subs.json
@@ -26,6 +27,8 @@ class SubsController < ApplicationController
   # POST /subs.json
   def create
     @sub = Sub.new(sub_params)
+    @sub.moderator = current_user
+    
     if @sub.save
       redirect_to sub_url(@sub)
     else
@@ -37,6 +40,7 @@ class SubsController < ApplicationController
   # PATCH/PUT /subs/1
   # PATCH/PUT /subs/1.json
   def update
+    @sub.update(sub_params)
     if @sub.save
       flash[:success] = "Sub updated!"
       redirect_to sub_url(@sub)
@@ -49,7 +53,6 @@ class SubsController < ApplicationController
   # DELETE /subs/1
   # DELETE /subs/1.json
   def destroy
-    @sub.destroy
     respond_to do |format|
       format.html { redirect_to subs_url, notice: 'Sub was successfully destroyed.' }
       format.json { head :no_content }
