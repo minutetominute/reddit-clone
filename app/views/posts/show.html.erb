@@ -27,10 +27,16 @@
 
 <a href="<%= new_post_comment_url(@post) %>">New comment</a>
 
+<% @all_comments = @post.comments %>
+<% @parent_comments = @all_comments.select do |comment| %>
+  <% comment.parent_comment_id.nil? %>
+<% end %>
 <ol>
-  <% @post.comments.where(parent_comment_id: nil).each do |comment| %>
+  <% @parent_comments.each do |comment| %>
     <li>
-     <%= render comment %>
-    </li>  
+     <%= render 'comments/comment',
+     comment: comment,
+     all_comments: @all_comments %>
+    </li>
   <% end %>
 </ol>

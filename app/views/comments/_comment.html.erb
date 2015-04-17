@@ -1,5 +1,9 @@
-<%= "#{comment.author.email} says: #{comment.content}" %>
-<% comment.child_comments.each do |child_comment| %>
+<% child_comments = all_comments.select do |comment2| %>
+  <% comment2.parent_comment_id == comment.id if comment2.parent_comment_id %>
+<% end %>
+
+<a href="<%= comment_url(comment) %>"><%= "#{comment.author.email} says: #{comment.content}" %></a>
+<% child_comments.each do |child_comment| %>
  <ul>
    <li>
      <%= render child_comment %>
